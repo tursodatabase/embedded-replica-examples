@@ -1,0 +1,11 @@
+[package]
+name = "turso-sync-demo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.75"
+libsql = { git = "https://github.com/libsql/libsql/", rev = "f6d83eee5fa97d1391969e6206a6c46c8b9ec4bb" }
+libsql_replication = { git = "https://github.com/libsql/libsql/", rev = "f6d83eee5fa97d1391969e6206a6c46c8b9ec4bb" }
+tokio = { version = "1.29.1", features = [ "rt-multi-thread" ] }
+tracing-subscriber = "0.3.17"
