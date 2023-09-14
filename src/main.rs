@@ -6,6 +6,7 @@ use std::sync::{Arc, Mutex};
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
 
+    // the path to a SQLite file.
     let db = Arc::new(Mutex::new(Database::open_with_local_sync("test.db").await.unwrap()));
     let conn = db.lock().unwrap().connect().unwrap();
 
@@ -14,10 +15,13 @@ async fn main() -> anyhow::Result<()> {
         println!("Usage: {} <snapshots path>", args[0]);
         return Ok(());
     }
+    // The snapshots path is where you would dump new snapshots into the airgapped system
+    // through any method of your choosing.
     let snapshots_path = args.get(1).unwrap();
 
+    // The sync loop. You would implement this logic. In here, we are syncing every second
     loop {
-        std::thread::sleep(std::time::Duration::from_secs(1));
+        std::thread::sleep(std::time::Duration::from_secs(3));
 
         let mut snapshot_paths: Vec<_> = std::fs::read_dir(snapshots_path).unwrap().map(|r| r.unwrap()).collect();
         snapshot_paths.sort_by_key(|dir| dir.path());
@@ -34,12 +38,13 @@ async fn main() -> anyhow::Result<()> {
             applied_total += applied;
         }
 
-        if applied_total == 0 {
-            continue;
-        }
         println!("Applied {} frames", applied_total);
 
-        let mut rows = conn.query("SELECT u.name, k.expired FROM users u JOIN keycards as k ON u.user_id = k.user_id", ()).await.unwrap();
+        let mut rows = match conn.query("SELECT u.name, k.expired FROM users u JOIN keycards as k ON u.user_id = k.user_id", ()).await {
+            Ok(x) => x,
+            Err(_) => { println!("Empty database"); continue; },
+        };
+
         while let Ok(Some(row)) = rows.next() {
             println!(
                 "User {} keycard is expired: {}",
