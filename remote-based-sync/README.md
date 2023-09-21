@@ -1,13 +1,13 @@
-# Keycard Reader Example
+# Remote Sync Example with Turso
 
-This repository contains source code to a keycard reader example application using libSQL remote sync.
+This repository contains source code to a example application using libSQL remote sync.
 
 ## Overview
 
 The scenario in this example is the following:
 
 * A libSQL server runs in a cloud on Turso.
-* A keycard reader runs a libSQL embedded replica, which periodically syncs with the server.
+* An application embeds libSQL database, which periodically syncs with the server.
 
 ## Getting Started
 
