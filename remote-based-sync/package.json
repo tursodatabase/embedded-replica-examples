@@ -1,0 +1,12 @@
+{
+  "name": "turso-sync-example",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "Pekka Enberg <penberg@turso.tech>",
+  "license": "MIT",
+  "dependencies": {
+    "@libsql/client": "^0.3.5-pre.7"
+  }
+}
