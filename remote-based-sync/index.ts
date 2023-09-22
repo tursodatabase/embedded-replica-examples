@@ -8,10 +8,6 @@ if (process.env.AUTH_TOKEN === undefined) {
   throw new Error("AUTH_TOKEN must be set");
 }
 
-if (process.env.DB_URL != undefined && process.env.SYNC_URL != undefined) {
-  throw new Error("only one of DB_URL and SYNC_URL should be set");
-}
-
 function prettyPrintDuration(duration) {
   if (duration >= 1000) {
     return (duration / 1000).toFixed(0) + "ms";
