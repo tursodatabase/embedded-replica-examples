@@ -26,18 +26,24 @@ if (process.env.SYNC_URL != undefined) {
   await client.sync();
 }
 
-for (let i = 0; i < 10; i++) {
-  const start = Bun.nanoseconds();
+const queries = 25;
+const start = Bun.nanoseconds();
+for (let i = 0; i < queries; i++) {
   const rs = await client.execute(
     "SELECT u.name, k.expired FROM users u JOIN keycards as k ON u.user_id = k.user_id",
   );
-  const delta = prettyPrintDuration((Bun.nanoseconds() - start) / 1000);
 
   for (const row of rs.rows) {
     console.log(
       `The keycard for user ${row.name} is ${
         row.expired ? "expired" : "valid"
-      }. Query took ${delta}`,
+      }`,
     );
   }
 }
+const delta = (Bun.nanoseconds() - start) / 1000;
+console.log(
+  `took ${prettyPrintDuration(delta)}, ${prettyPrintDuration(
+    delta / 50,
+  )} per query`,
+);
