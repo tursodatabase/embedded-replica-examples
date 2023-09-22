@@ -19,7 +19,7 @@ function prettyPrintDuration(duration) {
 const client = createClient({
   url: process.env.DB_URL,
   authToken: process.env.AUTH_TOKEN,
-  syncUrl: process.env.SYNC_URL ?? "",
+  syncUrl: process.env.SYNC_URL,
 });
 
 if (process.env.SYNC_URL != undefined) {
