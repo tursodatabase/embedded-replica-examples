@@ -40,10 +40,13 @@ INSERT INTO users VALUES (1, 'Glauber');
 INSERT INTO keycards VALUES (1, 1, false);
 ```
 
-Configure the `SYNC_URL` and `AUTH_TOKEN` environment variables:
+### First step: Running remotely
+
+To run remotely, configure the `DB_URL` and `AUTH_TOKEN` environment variables, while making sure that `SYNC_URL` is not set:
 
 ```console
-export SYNC_URL=$(turso db show --url sync-example)
+unset SYNC_URL
+export DB_URL=$(turso db show --url sync-example)
 export AUTH_TOKEN=$(turso db tokens create sync-example)
 ```
 
@@ -53,11 +56,36 @@ and run the example application:
 bun index.ts
 ```
 
-and you should see the following output:
+and you should see the following output, repeated 10 times:
 
 ```
-The keycard for user Glauber is valid
+The keycard for user Glauber is valid. Query took [time]
 ```
+
+
+### Second step: Running an embedded replica
+
+Configure the `SYNC_URL` and `AUTH_TOKEN` environment variables, and set `DB_URL` to a local file:
+
+```console
+export DB_URL="file:local.db"
+export SYNC_URL=$(turso db show --url sync-example)
+export AUTH_TOKEN=$(turso db tokens create sync-example)
+```
+
+and then run the example application:
+
+```
+bun index.ts
+```
+
+and you should see the following output, repeated 10 times:
+
+```
+The keycard for user Glauber is valid. Query took [time]
+```
+
+### Updates
 
 You can now update data on the remote database:
 
@@ -65,8 +93,8 @@ You can now update data on the remote database:
 UPDATE keycards SET expired = 1 WHERE user_id = 1;
 ```
 
-and now running the application outputs:
+and now running the application, either remotely or as an embedded replica, outputs:
 
 ```
-The keycard for user Glauber is expired
+The keycard for user Glauber is expired. Query took [time]
 ```
