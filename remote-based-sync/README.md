@@ -59,7 +59,7 @@ bun index.ts
 and you should see the following output, repeated 10 times:
 
 ```
-The keycard for user Glauber is valid. Query took [time]
+The keycard for user Glauber is valid.
 ```
 
 
@@ -82,7 +82,7 @@ bun index.ts
 and you should see the following output, repeated 10 times:
 
 ```
-The keycard for user Glauber is valid. Query took [time]
+The keycard for user Glauber is valid.
 ```
 
 ### Updates
@@ -96,5 +96,5 @@ UPDATE keycards SET expired = 1 WHERE user_id = 1;
 and now running the application, either remotely or as an embedded replica, outputs:
 
 ```
-The keycard for user Glauber is expired. Query took [time]
+The keycard for user Glauber is expired.
 ```
