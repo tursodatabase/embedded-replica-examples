@@ -53,7 +53,7 @@ export AUTH_TOKEN=$(turso db tokens create sync-example)
 and run the example application:
 
 ```
-bun index.ts
+bun query.ts
 ```
 
 and you should see the following output, repeated 10 times:
@@ -76,7 +76,7 @@ export AUTH_TOKEN=$(turso db tokens create sync-example)
 and then run the example application:
 
 ```
-bun index.ts
+bun query.ts
 ```
 
 and you should see the following output, repeated 10 times:
@@ -87,14 +87,20 @@ The keycard for user Glauber is valid.
 
 ### Updates
 
-You can now update data on the remote database:
+You can now update data on the remote database. Two scripts are provided for that:
+
+To set the card as valid:
 
 ```
-UPDATE keycards SET expired = 1 WHERE user_id = 1;
+bun validate.ts
 ```
 
-and now running the application, either remotely or as an embedded replica, outputs:
+To set the card as expired:
 
 ```
-The keycard for user Glauber is expired.
+bun expire.ts
 ```
+
+run `bun query.ts` to inspect for changes, and adjust your environment variables to switch
+between remote execution and embedded replicas, and notice the difference between them!
+
