@@ -9,6 +9,8 @@ The scenario in this example is the following:
 * A libSQL server runs in a cloud on Turso.
 * An application embeds libSQL database, which periodically syncs with the server.
 
+<img src="figures/libsql-sync.png">
+
 ## Getting Started
 
 First, create a database on Turso:
