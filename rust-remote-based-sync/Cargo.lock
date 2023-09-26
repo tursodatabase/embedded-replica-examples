@@ -734,6 +734,7 @@ dependencies = [
 [[package]]
 name = "libsql"
 version = "0.1.11"
+source = "git+https://github.com/libsql/libsql#b5706915b8a2615505f3c71805677ca6391f48bb"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -776,6 +777,7 @@ dependencies = [
 [[package]]
 name = "libsql-sys"
 version = "0.2.14"
+source = "git+https://github.com/libsql/libsql#b5706915b8a2615505f3c71805677ca6391f48bb"
 dependencies = [
  "bindgen",
  "cc",

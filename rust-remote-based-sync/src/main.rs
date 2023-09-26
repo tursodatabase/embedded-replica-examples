@@ -13,10 +13,13 @@ async fn main() {
     let db = Database::open_with_remote_sync("hello.db", sync_url, auth_token)
         .await
         .unwrap();
-
     db.sync().await.unwrap();
 
     let conn = db.connect().unwrap();
+
+    conn.execute("CREATE TABLE foo4 (x TEXT)", ())
+        .await
+        .unwrap();
 
     for _ in 0..10 {
         let now = Instant::now();
