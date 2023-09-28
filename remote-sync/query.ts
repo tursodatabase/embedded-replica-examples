@@ -37,6 +37,6 @@ for (let i = 0; i < queries; i++) {
 const delta = (Bun.nanoseconds() - start) / 1000;
 console.log(
   `took ${prettyPrintDuration(delta)}, ${prettyPrintDuration(
-    delta / 50,
+    delta / queries,
   )} per query`,
 );
